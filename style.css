@@ -1,0 +1,49 @@
+/* Sou do DOM */
+
+html {
+	margin: 8% auto;
+}
+
+body {
+	background-color: silver;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.color {
+	border-radius: 50%;
+	margin-bottom: 20px;
+}
+
+#button-random-color {
+	background-color: black;
+	color: white;
+	font-size: 18px;
+	margin-bottom: 20px;
+	border: 2px solid white;
+}
+
+#clear-board {
+	background-color: black;
+	color: white;
+	font-size: 18px;
+	border: 2px solid white;
+	height: 28px;
+}
+
+#board-size {
+	width: 30px;
+}
+
+label {
+	background-color: black;
+	color: white;
+	border: 2px solid white;
+}
+
+#generate-board {
+	background-color: black;
+	color: white;
+	border: 2px solid white;
+}
