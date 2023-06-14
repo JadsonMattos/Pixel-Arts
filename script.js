@@ -100,6 +100,7 @@ const clearBoard = () => {
   pixels.forEach((pixel) => {
     pixel.style.backgroundColor = 'white';
   });
+  setBoard();
 };
 
 const setBoard = () => {
@@ -115,10 +116,15 @@ const getBoard = () => {
   const atual = JSON.parse(localStorage.getItem('pixelBoard'));
   if (atual) {
     const pixels = document.querySelectorAll('.pixel');
-    pixels.forEach((pixel, index) => {
-      pixel.style.backgroundColor = atual[index];
-    });
+    const boardIsEmpty = Array.from(pixels).every((pixel, index) => !atual[index]);
+    if (!boardIsEmpty) {
+      pixels.forEach((pixel, index) => {
+        pixel.style.backgroundColor = atual[index];
+      });
+      return;
+    }
   }
+  clearBoard();
 };
 
 const storedBoardSize = localStorage.getItem('boardSize');
@@ -139,8 +145,10 @@ const createInitialBoard = () => {
     const row = createRow(limitedSize);
     board.appendChild(row);
     row.querySelectorAll('.pixel').forEach((pixel) => {
-      pixel.addEventListener('click', fillPixel);
-      pixel.addEventListener('click', setBoard);
+      pixel.addEventListener('click', (event) => {
+        fillPixel(event);
+        setBoard();
+      });
     });
   }
 };
@@ -202,4 +210,7 @@ buttonGenerateBoard.addEventListener('click', makeBoard);
 window.addEventListener('load', () => {
   createInitialBoard();
   getBoard();
+  if (localStorage.getItem('pixelBoard') === JSON.stringify({})) {
+    localStorage.removeItem('pixelBoard');
+  }
 });
